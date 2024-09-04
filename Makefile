@@ -1,6 +1,7 @@
 BINARY = build/rpn_main
 INSTALL_DIR = ~/.local/bin
 INSTALL_EXE_NAME = rpn
+PYTHON3 = python3
 
 .PHONY: $(BINARY)
 $(BINARY):
@@ -16,3 +17,7 @@ run: $(BINARY)
 	@echo starting $(BINARY)
 	@echo -----------------------
 	@$(BINARY)
+
+.PHONY: test
+test: $(BINARY)
+	$(PYTHON3) tests/main.py $(BINARY)

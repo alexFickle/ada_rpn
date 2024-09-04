@@ -16,7 +16,7 @@ begin
             result := rpn_eval(str);
             Text_IO.Put_Line(Integer'Image(result));
         exception when e : Constraint_Error =>
-            Text_IO.Put_Line(Exceptions.Exception_Message(e));
+            Text_IO.Put_Line("error: " & Exceptions.Exception_Message(e));
         end;
     end loop;
 end;
