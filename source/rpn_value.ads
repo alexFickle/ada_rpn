@@ -20,6 +20,8 @@ package rpn_value is
 
     function "/" (a, b : Value) return Value;
 
+    function "**" (a, b: Value) return Value;
+
 private
     type Value (isInt : Boolean := True) is record
         case isInt is

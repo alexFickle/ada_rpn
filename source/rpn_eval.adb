@@ -69,6 +69,9 @@ begin
             elsif substr = "/" then
                 pop_two (vec, a, b);
                 vec.Append (a / b);
+            elsif substr = "**" then
+                pop_two(vec, a, b);
+                vec.Append(a ** b);
             else
                 vec.Append (eval_operand (substr, var_map));
             end if;

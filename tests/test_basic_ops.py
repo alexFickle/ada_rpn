@@ -1,5 +1,7 @@
 from fixture import TestFixture
 
+import math
+
 class TestBasicOps(TestFixture):
 
     def test_identity(self):
@@ -37,3 +39,15 @@ class TestBasicOps(TestFixture):
         self.assert_evals_to("8.0 2 /", 4.0)
         self.assert_evals_to("8 2.0 /", 4.0)
         self.assert_evals_to("8.0 2.0 /", 4.0)
+
+    def test_pow(self):
+        self.assert_evals_to("2 3 **", 8)
+
+    def test_pow_sqrt(self):
+        self.assert_evals_to("2 0.5 **", 2 ** 0.5)
+
+    def test_pow_invert(self):
+        self.assert_evals_to("2 -1 **", 0.5)
+
+    def test_pow_float(self):
+        self.assert_evals_to("pi 2 **", math.pi ** 2)

@@ -1,3 +1,5 @@
+with Ada.Numerics.Long_Elementary_Functions;
+
 package body rpn_value is
 
     function To_Value (int : Integer) return Value is
@@ -69,5 +71,15 @@ package body rpn_value is
     begin
         return To_Value (To_Long_Float (a) / To_Long_Float (b));
     end "/";
+
+    function "**" (a, b : Value) return Value is
+        use Ada.Numerics.Long_Elementary_Functions;
+    begin
+        if a.isInt and then b.isInt and then b.int >= 0 then
+            return To_Value (a.int**b.int);
+        else
+            return To_Value (To_Long_Float (a)**To_Long_Float (b));
+        end if;
+    end "**";
 
 end rpn_value;
