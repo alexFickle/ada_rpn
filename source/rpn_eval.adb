@@ -4,16 +4,18 @@ with Ada.Containers.Vectors;
 use Ada;
 use Ada.Containers;
 
-function rpn_eval (str: String) return Integer is
+with rpn_value; use rpn_value;
 
-    package Integer_Vectors is new
+function rpn_eval (str: String) return Value is
+
+    package Value_Vectors is new
         Containers.Vectors(
             Index_Type   => Natural,
-            Element_Type => Integer
+            Element_Type => Value
         );
-    use Integer_Vectors;
+    use Value_Vectors;
 
-    procedure pop_two(vec: in out Vector; a: out Integer; b: out Integer) is
+    procedure pop_two(vec: in out Vector; a: out Value; b: out Value) is
     begin
         b := vec.Last_Element;
         vec.Delete_Last;
@@ -44,25 +46,25 @@ begin
         );
             exit when last = 0;
             declare
-                a, b: Integer;
+                a, b: Value;
                 substr: String := str (first .. last);
             begin
                 pos := last + 1;
                 if substr = "+" then
                     pop_two(vec, a, b);
-                    vec.Append(a + b);
+                    vec.Append(Add(a, b));
                 elsif substr = "-" then
                     pop_two(vec, a, b);
-                    vec.Append(a - b);
+                    vec.Append(Sub(a, b));
                 elsif substr = "*" then
                     pop_two(vec, a, b);
-                    vec.Append(a * b);
+                    vec.Append(Mult(a, b));
                 elsif substr = "/" then
                     pop_two(vec, a, b);
-                    vec.Append(a / b);
+                    vec.Append(Div(a, b));
                 else
                     begin
-                        vec.Append(Integer'Value(substr));
+                        vec.Append(From_String(substr));
                     exception when E : Constraint_Error =>
                         raise Constraint_Error with
                             "invalid RPN equation, failed to parse token: " & substr;

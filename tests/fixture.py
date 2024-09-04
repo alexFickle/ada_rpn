@@ -38,7 +38,7 @@ class TestFixture(unittest.TestCase):
             f"expected command to error, read: {response!r}"
         )
 
-    def assert_evals_to(self, command: str, expected_value: int) -> None:
+    def assert_evals_to(self, command: str, expected_value: int | float) -> None:
         response = self.run_command(command)
         self.assertFalse(
             response.startswith("error"),
@@ -46,5 +46,13 @@ class TestFixture(unittest.TestCase):
         )
         result = response.strip()
 
-        result_value = int(result)
-        self.assertEqual(result_value, expected_value)
+        if isinstance(expected_value, int):
+            result_value = int(result)
+            self.assertEqual(result_value, expected_value)
+        elif isinstance(expected_value, float):
+            self.assertTrue('.' in result, "expected floating point result: {result!r}")
+            self.assertTrue('E' in result, "expected floating point result: {result!r}")
+            result_value = float(result)
+            self.assertAlmostEqual(result_value, expected_value)
+        else:
+            raise TypeError("unexpected type for expected_value: {expected_value!r}")
