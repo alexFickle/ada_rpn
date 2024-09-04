@@ -15,16 +15,14 @@ function rpn_eval (str: String) return Integer is
 
     procedure pop_two(vec: in out Vector; a: out Integer; b: out Integer) is
     begin
-        begin
-            b := vec.Last_Element;
-            vec.Delete_Last;
-            a := vec.Last_Element;
-            vec.Delete_Last;
-        exception
-            when E : Constraint_Error =>
-                raise Constraint_Error with
-                    "invalid RPN equation, binary operator missing operands";
-        end;
+        b := vec.Last_Element;
+        vec.Delete_Last;
+        a := vec.Last_Element;
+        vec.Delete_Last;
+    exception
+        when E : Constraint_Error =>
+            raise Constraint_Error with
+                "invalid RPN equation, binary operator missing operands";
     end;
 
     pos : Natural := 1;
