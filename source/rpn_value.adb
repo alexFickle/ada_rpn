@@ -82,4 +82,13 @@ package body rpn_value is
         end if;
     end "**";
 
+    function Truncating_Divide (a, b : Value) return Value is
+    begin
+        if a.isInt and b.isInt then
+            return To_Value (a.int / b.int);
+        else
+            return To_Value (Integer (To_Long_Float (a) / To_Long_Float (b)));
+        end if;
+    end Truncating_Divide;
+
 end rpn_value;

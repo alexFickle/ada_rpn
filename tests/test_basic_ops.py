@@ -34,11 +34,27 @@ class TestBasicOps(TestFixture):
         self.assert_evals_to("2 3.0 *", 6.0)
         self.assert_evals_to("2.0 3.0 *", 6.0)
 
+    def test_div(self):
+        self.assert_evals_to("8 2 //", 4)
+        self.assert_evals_to("8.0 2 //", 4)
+        self.assert_evals_to("8 2.0 //", 4)
+        self.assert_evals_to("8.0 2.0 //", 4)
+
+    def test_div_by_zero(self):
+        self.assert_errors("8 0 //")
+        self.assert_errors("-8 0 //")
+        self.assert_errors("0 0 //")
+
     def test_div_float(self):
         self.assert_evals_to("8 2 /", 4.0)
         self.assert_evals_to("8.0 2 /", 4.0)
         self.assert_evals_to("8 2.0 /", 4.0)
         self.assert_evals_to("8.0 2.0 /", 4.0)
+
+    def test_div_by_zero_float(self):
+        self.assert_evals_to("8 0 /", math.inf)
+        self.assert_evals_to("-8 0 /", -math.inf)
+        self.assert_evals_to("0 0 /", math.nan)
 
     def test_pow(self):
         self.assert_evals_to("2 3 **", 8)

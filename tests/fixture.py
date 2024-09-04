@@ -1,5 +1,6 @@
 import unittest
 import subprocess
+import math
 
 _test_binary: str | None = None
 
@@ -50,9 +51,16 @@ class TestFixture(unittest.TestCase):
             result_value = int(result)
             self.assertEqual(result_value, expected_value)
         elif isinstance(expected_value, float):
-            self.assertTrue('.' in result, "expected floating point result: {result!r}")
-            self.assertTrue('E' in result, "expected floating point result: {result!r}")
-            result_value = float(result)
-            self.assertAlmostEqual(result_value, expected_value)
+            if expected_value == math.inf:
+                self.assertTrue(result.startswith("+Inf"), f"expected +Inf, result: {result!r}")
+            elif expected_value == -math.inf:
+                self.assertTrue(result.startswith("-Inf"), f"expected -Inf, result: {result!r}")
+            elif math.isnan(expected_value):
+                self.assertTrue(result.startswith("NaN"), f"expected NaN, result: {result!r}")
+            else:
+                self.assertTrue('.' in result, f"expected floating point result: {result!r}")
+                self.assertTrue('E' in result, f"expected floating point result: {result!r}")
+                result_value = float(result)
+                self.assertAlmostEqual(result_value, expected_value)
         else:
             raise TypeError("unexpected type for expected_value: {expected_value!r}")
