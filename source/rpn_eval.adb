@@ -52,16 +52,16 @@ begin
                 pos := last + 1;
                 if substr = "+" then
                     pop_two(vec, a, b);
-                    vec.Append(Add(a, b));
+                    vec.Append(a + b);
                 elsif substr = "-" then
                     pop_two(vec, a, b);
-                    vec.Append(Sub(a, b));
+                    vec.Append(a - b);
                 elsif substr = "*" then
                     pop_two(vec, a, b);
-                    vec.Append(Mult(a, b));
+                    vec.Append(a * b);
                 elsif substr = "/" then
                     pop_two(vec, a, b);
-                    vec.Append(Div(a, b));
+                    vec.Append(a / b);
                 else
                     begin
                         vec.Append(From_String(substr));

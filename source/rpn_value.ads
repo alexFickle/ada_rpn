@@ -18,12 +18,12 @@ package rpn_value is
 
     function To_Long_Float(val: Value) return Long_Float;
 
-    function Add(a, b: Value) return Value;
+    function "+"(a, b: Value) return Value;
 
-    function Sub(a, b: Value) return Value;
+    function "-"(a, b: Value) return Value;
 
-    function Mult(a, b: Value) return Value;
+    function "*"(a, b: Value) return Value;
 
-    function Div(a, b: Value) return Value;
+    function "/"(a, b: Value) return Value;
 
 end rpn_value;

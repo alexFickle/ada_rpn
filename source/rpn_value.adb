@@ -42,36 +42,36 @@ package body rpn_value is
         end case;
     end To_Long_Float;
 
-    function Add(a, b: Value) return Value is
+    function "+"(a, b: Value) return Value is
     begin
         if a.isInt and b.isInt then
             return To_Value(a.int + b.int);
         else
             return To_Value(To_Long_Float(a) + To_Long_Float(b));
         end if;
-    end Add;
+    end "+";
 
-    function Sub(a, b: Value) return Value is
+    function "-"(a, b: Value) return Value is
     begin
         if a.isInt and b.isInt then
             return To_Value(a.int - b.int);
         else
             return To_Value(To_Long_Float(a) - To_Long_Float(b));
         end if;
-    end Sub;
+    end "-";
 
-    function Mult(a, b: Value) return Value is
+    function "*"(a, b: Value) return Value is
     begin
         if a.isInt and b.isInt then
             return To_Value(a.int * b.int);
         else
             return To_Value(To_Long_Float(a) * To_Long_Float(b));
         end if;
-    end Mult;
+    end "*";
 
-    function Div(a, b: Value) return Value is
+    function "/"(a, b: Value) return Value is
     begin
         return To_Value(To_Long_Float(a) / To_Long_Float(b));
-    end Div;
+    end "/";
 
 end rpn_value;
