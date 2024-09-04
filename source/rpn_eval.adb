@@ -4,8 +4,9 @@ with Ada.Containers.Vectors; use Ada.Containers;
 use Ada;
 
 with rpn_value; use rpn_value;
+with rpn_var_map;
 
-function rpn_eval (str : String) return Value is
+function rpn_eval (str : String; var_map : rpn_var_map.Map) return Value is
 
     package Value_Vectors is new Containers.Vectors
        (Index_Type => Natural, Element_Type => Value);
@@ -22,6 +23,20 @@ function rpn_eval (str : String) return Value is
             raise Constraint_Error
                with "invalid RPN equation, binary operator missing operands";
     end pop_two;
+
+    function eval_operand
+       (str : String; var_map : rpn_var_map.Map) return Value
+    is
+    begin
+        return To_Value (str);
+    exception
+        when E : Constraint_Error =>
+            if var_map.Contains (str) then
+                return var_map (str);
+            end if;
+            raise Constraint_Error
+               with "invalid RPN equation, failed to parse token: " & str;
+    end eval_operand;
 
     pos   : Natural := 1;
     first : Positive;
@@ -55,14 +70,7 @@ begin
                 pop_two (vec, a, b);
                 vec.Append (a / b);
             else
-                begin
-                    vec.Append (To_Value (substr));
-                exception
-                    when E : Constraint_Error =>
-                        raise Constraint_Error
-                           with "invalid RPN equation, failed to parse token: " &
-                           substr;
-                end;
+                vec.Append (eval_operand (substr, var_map));
             end if;
         end;
     end loop;
