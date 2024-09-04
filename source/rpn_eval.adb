@@ -30,7 +30,7 @@ function rpn_eval (str: String) return Integer is
     last: Natural;
     vec: Vector;
 
-    whitespace : constant Strings.Maps.Character_Set := Strings.Maps.To_Set (' ');
+    whitespace : constant Strings.Maps.Character_Set := Strings.Maps.To_Set(' ');
 
 begin
     while pos in str'Range loop
@@ -47,6 +47,7 @@ begin
                 a, b: Integer;
                 substr: String := str (first .. last);
             begin
+                pos := last + 1;
                 if substr = "+" then
                     pop_two(vec, a, b);
                     vec.Append(a + b);
@@ -68,7 +69,6 @@ begin
                     end;
                 end if;
             end;
-                pos := last + 1;
     end loop;
 
     if vec.Length /= 1 then
