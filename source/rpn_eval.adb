@@ -38,7 +38,7 @@ function rpn_eval (str : String; var_map : rpn_var_map.Map) return Value is
                with "invalid RPN equation, failed to parse token: " & str;
     end eval_operand;
 
-    pos   : Natural := 1;
+    pos   : Natural := str'First;
     first : Positive;
     last  : Natural;
     vec   : Vector;
@@ -70,11 +70,11 @@ begin
                 pop_two (vec, a, b);
                 vec.Append (a / b);
             elsif substr = "**" then
-                pop_two(vec, a, b);
-                vec.Append(a ** b);
+                pop_two (vec, a, b);
+                vec.Append (a**b);
             elsif substr = "//" then
-                pop_two(vec, a, b);
-                vec.Append(Truncating_Divide(a, b));
+                pop_two (vec, a, b);
+                vec.Append (Truncating_Divide (a, b));
             else
                 vec.Append (eval_operand (substr, var_map));
             end if;

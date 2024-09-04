@@ -5,6 +5,7 @@ with Ada.Numerics;
 with rpn_eval;
 with rpn_value; use rpn_value;
 with rpn_var_map;
+with binding_parser;
 
 procedure rpn_main is
     result  : Value;
@@ -16,12 +17,21 @@ begin
     Put_Line ("Enter equation or press Enter to quit");
     loop
         declare
-            str : String := Get_Line;
+            str          : constant String       := Get_Line;
+            parse_result : binding_parser.Result := binding_parser.parse (str);
+            name         : constant String       :=
+               str (parse_result.name.s .. parse_result.name.e);
+            expr         : constant String       :=
+               str (parse_result.expr.s .. parse_result.expr.e);
         begin
-            exit when str = "";
-            result := rpn_eval (str, var_map);
+            exit when expr = "";
+            result := rpn_eval (expr, var_map);
             Put_Line (To_String (result));
-            var_map.Include ("_", result);
+            if name'Length = 0 then
+                var_map.Include ("_", result);
+            else
+                var_map.Include (name, result);
+            end if;
         exception
             when e : Constraint_Error =>
                 Put_Line ("error: " & Exception_Message (e));
