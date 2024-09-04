@@ -1,12 +1,7 @@
 
 package rpn_value is
 
-    type Value (isInt: Boolean := True) is record
-        case isInt is
-            when True => int: Integer;
-            when False => float: Long_Float;
-        end case;
-    end record;
+    type Value is private;
 
     function To_Value (int: Integer) return Value;
 
@@ -25,5 +20,13 @@ package rpn_value is
     function "*"(a, b: Value) return Value;
 
     function "/"(a, b: Value) return Value;
+
+private
+    type Value (isInt: Boolean := True) is record
+        case isInt is
+            when True => int: Integer;
+            when False => float: Long_Float;
+        end case;
+    end record;
 
 end rpn_value;
