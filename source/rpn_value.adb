@@ -3,27 +3,20 @@ package body rpn_value is
     function To_Value (int : Integer) return Value is
         val : Value (True);
     begin
-        val.int := int;
-        return val;
+        return (isInt => True, int => int);
     end To_Value;
 
     function To_Value (float : Long_Float) return Value is
-        val : Value (False);
     begin
-        val.float := float;
-        return val;
+        return (isInt => False, float => float);
     end To_Value;
 
     function To_Value (str : String) return Value is
-        int   : Value (True);
-        float : Value (False);
     begin
-        int.int := Integer'Value (str);
-        return int;
+        return (isInt => True, int => Integer'Value (str));
     exception
         when e : Constraint_Error =>
-            float.float := Long_Float'Value (str);
-            return float;
+            return (isInt => False, float => Long_Float'Value (str));
     end To_Value;
 
     function To_String (val : Value) return String is
