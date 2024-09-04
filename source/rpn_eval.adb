@@ -1,7 +1,7 @@
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps;
-with Ada.Containers.Vectors; use Ada;
-use Ada.Containers;
+with Ada.Containers.Vectors; use Ada.Containers;
+use Ada;
 
 with rpn_value; use rpn_value;
 
