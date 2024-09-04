@@ -2,7 +2,7 @@ from fixture import TestFixture
 
 import math
 
-class TestInvalidRPN(TestFixture):
+class TestConstants(TestFixture):
 
     def test_e_identity(self):
         self.assert_evals_to("e", math.e)
