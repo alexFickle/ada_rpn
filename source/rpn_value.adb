@@ -1,7 +1,6 @@
 package body rpn_value is
 
     function To_Value (int : Integer) return Value is
-        val : Value (True);
     begin
         return (isInt => True, int => int);
     end To_Value;
