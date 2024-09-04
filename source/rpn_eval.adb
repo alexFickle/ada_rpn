@@ -64,7 +64,7 @@ begin
                     vec.Append(a / b);
                 else
                     begin
-                        vec.Append(From_String(substr));
+                        vec.Append(To_Value(substr));
                     exception when E : Constraint_Error =>
                         raise Constraint_Error with
                             "invalid RPN equation, failed to parse token: " & substr;

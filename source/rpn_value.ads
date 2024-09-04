@@ -7,7 +7,7 @@ package rpn_value is
 
     function To_Value (float: Long_Float) return Value;
 
-    function From_String (str: String) return Value;
+    function To_Value (str: String) return Value;
 
     function To_String (val: Value) return String;
 

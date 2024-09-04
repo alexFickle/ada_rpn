@@ -15,7 +15,7 @@ package body rpn_value is
         return val;
     end To_Value;
 
-    function From_String (str: String) return Value is
+    function To_Value (str: String) return Value is
         int: Value(True);
         float: Value(False);
     begin
@@ -24,7 +24,7 @@ package body rpn_value is
     exception when e: Constraint_Error =>
         float.float := Long_Float'Value(str);
         return float;
-    end From_String;
+    end To_Value;
 
     function To_String (val: Value) return String is
     begin
