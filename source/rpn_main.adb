@@ -21,6 +21,7 @@ begin
             exit when str = "";
             result := rpn_eval (str, var_map);
             Put_Line (To_String (result));
+            var_map.Include ("_", result);
         exception
             when e : Constraint_Error =>
                 Put_Line ("error: " & Exception_Message (e));
