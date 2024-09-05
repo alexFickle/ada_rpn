@@ -3,7 +3,7 @@ with Ada.Exceptions; use Ada.Exceptions;
 
 with RPN_Value; use RPN_Value;
 with Variable_Map;
-with rpn_eval;
+with Eval;
 with binding_parser;
 
 function Handle_Line
@@ -20,7 +20,7 @@ begin
         return True;
     end if;
 
-    Result := rpn_eval (Expr, Var_Map);
+    Result := Eval (Expr, Var_Map);
     Put_Line (To_String (Result));
 
     if Name'Length = 0 then

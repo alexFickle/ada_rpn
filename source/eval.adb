@@ -6,7 +6,7 @@ use Ada;
 with RPN_Value; use RPN_Value;
 with Variable_Map;
 
-function rpn_eval (Str : String; Var_Map : Variable_Map.Map) return Value is
+function Eval (Str : String; Var_Map : Variable_Map.Map) return Value is
 
     package Value_Vectors is new Containers.Vectors
        (Index_Type => Natural, Element_Type => Value);
@@ -88,4 +88,4 @@ begin
 
     return Vec.Last_Element;
 
-end rpn_eval;
+end Eval;
