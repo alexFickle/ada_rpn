@@ -3,7 +3,7 @@ with Ada.Strings.Maps;
 with Ada.Containers.Vectors; use Ada.Containers;
 use Ada;
 
-with RPN_Value; use RPN_Value;
+with Values; use Values;
 with Variable_Map;
 
 function Eval (Str : String; Var_Map : Variable_Map.Map) return Value is

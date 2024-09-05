@@ -1,4 +1,4 @@
-package RPN_Value is
+package Values is
 
     type Value is private;
 
@@ -34,4 +34,4 @@ private
         end case;
     end record;
 
-end RPN_Value;
+end Values;

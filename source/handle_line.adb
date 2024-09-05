@@ -1,7 +1,7 @@
 with Ada.Text_IO;    use Ada.Text_IO;
 with Ada.Exceptions; use Ada.Exceptions;
 
-with RPN_Value; use RPN_Value;
+with Values; use Values;
 with Variable_Map;
 with Eval;
 with binding_parser;

@@ -1,6 +1,6 @@
 with Ada.Numerics.Long_Elementary_Functions;
 
-package body RPN_Value is
+package body Values is
 
     function To_Value (Int : Integer) return Value is
     begin
@@ -91,4 +91,4 @@ package body RPN_Value is
         end if;
     end Truncating_Divide;
 
-end RPN_Value;
+end Values;
