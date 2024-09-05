@@ -2,12 +2,12 @@ with Ada.Text_IO;    use Ada.Text_IO;
 with Ada.Exceptions; use Ada.Exceptions;
 
 with rpn_value; use rpn_value;
-with rpn_var_map;
+with Variable_Map;
 with rpn_eval;
 with binding_parser;
 
 function Handle_Line
-   (Line : String; Var_Map : in out rpn_var_map.Map) return Boolean
+   (Line : String; Var_Map : in out Variable_Map.Map) return Boolean
 is
     Result       : Value;
     Parse_Result : binding_parser.Result := binding_parser.Parse (Line);

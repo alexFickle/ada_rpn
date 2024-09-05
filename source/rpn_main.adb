@@ -1,12 +1,12 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Numerics;
 
-with handle_line;
+with Handle_Line;
 with rpn_value; use rpn_value;
-with rpn_var_map;
+with Variable_Map;
 
 procedure rpn_main is
-    Var_Map : rpn_var_map.Map;
+    Var_Map : Variable_Map.Map;
 begin
     Var_Map.Include ("pi", To_Value (Ada.Numerics.Pi));
     Var_Map.Include ("e", To_Value (Ada.Numerics.e));

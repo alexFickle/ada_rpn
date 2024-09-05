@@ -4,9 +4,9 @@ with Ada.Containers.Vectors; use Ada.Containers;
 use Ada;
 
 with rpn_value; use rpn_value;
-with rpn_var_map;
+with Variable_Map;
 
-function rpn_eval (Str : String; Var_Map : rpn_var_map.Map) return Value is
+function rpn_eval (Str : String; Var_Map : Variable_Map.Map) return Value is
 
     package Value_Vectors is new Containers.Vectors
        (Index_Type => Natural, Element_Type => Value);
@@ -25,7 +25,7 @@ function rpn_eval (Str : String; Var_Map : rpn_var_map.Map) return Value is
     end Pop_Two;
 
     function Eval_Operand
-       (Str : String; Var_Map : rpn_var_map.Map) return Value
+       (Str : String; Var_Map : Variable_Map.Map) return Value
     is
     begin
         return To_Value (Str);
