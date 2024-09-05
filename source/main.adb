@@ -16,7 +16,7 @@ begin
         declare
             Str : constant String := Get_Line;
         begin
-            exit when handle_line (Str, Var_Map);
+            exit when Handle_Line (Str, Var_Map);
         end;
     end loop;
 end Main;
