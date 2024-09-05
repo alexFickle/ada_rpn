@@ -2,7 +2,7 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Numerics;
 
 with Handle_Line;
-with rpn_value; use rpn_value;
+with RPN_Value; use RPN_Value;
 with Variable_Map;
 
 procedure rpn_main is
