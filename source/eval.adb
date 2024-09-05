@@ -1,16 +1,18 @@
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps;
-with Ada.Containers.Vectors; use Ada.Containers;
-use Ada;
+with Ada.Containers.Vectors;
 
 with Values; use Values;
 with Variable_Map;
 
 function Eval (Str : String; Var_Map : Variable_Map.Map) return Value is
 
-    package Value_Vectors is new Containers.Vectors
+    package Value_Vectors is new Ada.Containers.Vectors
        (Index_Type => Natural, Element_Type => Value);
     use Value_Vectors;
+
+    use Ada.Strings;
+    use Ada.Containers;
 
     procedure Pop_Two (Vec : in out Vector; A : out Value; B : out Value) is
     begin
@@ -43,14 +45,13 @@ function Eval (Str : String; Var_Map : Variable_Map.Map) return Value is
     Last  : Natural;
     Vec   : Vector;
 
-    Whitespace : constant Strings.Maps.Character_Set :=
-       Strings.Maps.To_Set (' ');
+    Whitespace : constant Maps.Character_Set := Maps.To_Set (' ');
 
 begin
     while Pos in Str'Range loop
-        Strings.Fixed.Find_Token
-           (Source => Str, Set => Whitespace, From => Pos,
-            Test   => Strings.Outside, First => First, Last => Last);
+        Fixed.Find_Token
+           (Source => Str, Set => Whitespace, From => Pos, Test => Outside,
+            First  => First, Last => Last);
         exit when Last = 0;
         declare
             A, B   : Value;

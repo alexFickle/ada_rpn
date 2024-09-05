@@ -1,5 +1,5 @@
-with Ada.Text_IO;    use Ada.Text_IO;
-with Ada.Exceptions; use Ada.Exceptions;
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Exceptions;
 
 with Values; use Values;
 with Variable_Map;
@@ -32,6 +32,6 @@ begin
 
 exception
     when E : Constraint_Error =>
-        Put_Line ("error: " & Exception_Message (E));
+        Put_Line ("error: " & Ada.Exceptions.Exception_Message (E));
         return False;
 end Handle_Line;
