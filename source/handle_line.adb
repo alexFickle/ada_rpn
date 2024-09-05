@@ -4,13 +4,13 @@ with Ada.Exceptions; use Ada.Exceptions;
 with Values; use Values;
 with Variable_Map;
 with Eval;
-with binding_parser;
+with Binding_Parser;
 
 function Handle_Line
    (Line : String; Var_Map : in out Variable_Map.Map) return Boolean
 is
     Result       : Value;
-    Parse_Result : binding_parser.Result := binding_parser.Parse (Line);
+    Parse_Result : Binding_Parser.Result := Binding_Parser.Parse (Line);
     Name         : constant String       :=
        Line (Parse_Result.Name.S .. Parse_Result.Name.E);
     Expr         : constant String       :=

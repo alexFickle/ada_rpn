@@ -1,6 +1,6 @@
 with Ada.Strings.Fixed;
 
-package body binding_parser is
+package body Binding_Parser is
 
     procedure Strip_Space (Str : String; Span : in out String_Span) is
         Index : Natural := Span.S;
@@ -50,4 +50,4 @@ package body binding_parser is
 
     end Parse;
 
-end binding_parser;
+end Binding_Parser;

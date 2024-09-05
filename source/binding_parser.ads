@@ -1,4 +1,4 @@
-package binding_parser is
+package Binding_Parser is
 
     type String_Span is record
         S : Natural := 1;
@@ -12,4 +12,4 @@ package binding_parser is
 
     function Parse (Str : String) return Result;
 
-end binding_parser;
+end Binding_Parser;
