@@ -5,7 +5,7 @@ with Handle_Line;
 with RPN_Value; use RPN_Value;
 with Variable_Map;
 
-procedure rpn_main is
+procedure Main is
     Var_Map : Variable_Map.Map;
 begin
     Var_Map.Include ("pi", To_Value (Ada.Numerics.Pi));
@@ -19,4 +19,4 @@ begin
             exit when handle_line (Str, Var_Map);
         end;
     end loop;
-end rpn_main;
+end Main;

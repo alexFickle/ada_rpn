@@ -1,4 +1,4 @@
-BINARY = build/rpn_main
+BINARY = build/main
 INSTALL_DIR = ~/.local/bin
 INSTALL_EXE_NAME = rpn
 PYTHON3 = python3
