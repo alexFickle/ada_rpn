@@ -9,24 +9,20 @@ with Binding_Parser;
 function Handle_Line
    (Line : String; Var_Map : in out Variable_Map.Map) return Boolean
 is
-    Result       : Value;
-    Parse_Result : Binding_Parser.Result := Binding_Parser.Parse (Line);
-    Name         : constant String       :=
-       Line (Parse_Result.Name.S .. Parse_Result.Name.E);
-    Expr         : constant String       :=
-       Line (Parse_Result.Expr.S .. Parse_Result.Expr.E);
+    Result : Value;
+    Parsed : constant Binding_Parser.Result := Binding_Parser.Parse (Line);
 begin
-    if Expr = "" then
+    if Parsed.Expr = "" then
         return True;
     end if;
 
-    Result := Eval (Expr, Var_Map);
+    Result := Eval (Parsed.Expr, Var_Map);
     Put_Line (To_String (Result));
 
-    if Name'Length = 0 then
+    if Parsed.Name'Length = 0 then
         Var_Map.Include ("_", Result);
     else
-        Var_Map.Include (Name, Result);
+        Var_Map.Include (Parsed.Name, Result);
     end if;
     return False;
 

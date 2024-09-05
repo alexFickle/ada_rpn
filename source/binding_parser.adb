@@ -2,6 +2,25 @@ with Ada.Strings.Fixed;
 
 package body Binding_Parser is
 
+    type String_Span is record
+        S : Natural := 1;
+        E : Natural := 0;
+    end record;
+
+    function Length (Span : String_Span) return Natural is
+    begin
+        if Span.E < Span.S then
+            return 0;
+        else
+            return (Span.E - Span.S) + 1;
+        end if;
+    end Length;
+
+    function To_Sub_String (Str : String; Span : String_Span) return String is
+    begin
+        return Str (Span.S .. Span.E);
+    end To_Sub_String;
+
     procedure Strip_Space (Str : String; Span : in out String_Span) is
         Index : Natural := Span.S;
     begin
@@ -46,7 +65,9 @@ package body Binding_Parser is
             Strip_Space (Str, Expr);
         end if;
 
-        return (Name, Expr);
+        return
+           (Length (Name), Length (Expr), To_Sub_String (Str, Name),
+            To_Sub_String (Str, Expr));
 
     end Parse;
 
