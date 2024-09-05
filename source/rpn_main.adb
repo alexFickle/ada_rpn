@@ -6,17 +6,17 @@ with rpn_value; use rpn_value;
 with rpn_var_map;
 
 procedure rpn_main is
-    var_map : rpn_var_map.Map;
+    Var_Map : rpn_var_map.Map;
 begin
-    var_map.Include ("pi", To_Value (Ada.Numerics.Pi));
-    var_map.Include ("e", To_Value (Ada.Numerics.e));
+    Var_Map.Include ("pi", To_Value (Ada.Numerics.Pi));
+    Var_Map.Include ("e", To_Value (Ada.Numerics.e));
 
     Put_Line ("Enter equation or press Enter to quit");
     loop
         declare
-            str : constant String := Get_Line;
+            Str : constant String := Get_Line;
         begin
-            exit when handle_line (str, var_map);
+            exit when handle_line (Str, Var_Map);
         end;
     end loop;
 end rpn_main;

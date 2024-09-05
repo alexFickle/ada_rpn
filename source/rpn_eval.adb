@@ -6,86 +6,86 @@ use Ada;
 with rpn_value; use rpn_value;
 with rpn_var_map;
 
-function rpn_eval (str : String; var_map : rpn_var_map.Map) return Value is
+function rpn_eval (Str : String; Var_Map : rpn_var_map.Map) return Value is
 
     package Value_Vectors is new Containers.Vectors
        (Index_Type => Natural, Element_Type => Value);
     use Value_Vectors;
 
-    procedure pop_two (vec : in out Vector; a : out Value; b : out Value) is
+    procedure Pop_Two (Vec : in out Vector; A : out Value; B : out Value) is
     begin
-        b := vec.Last_Element;
-        vec.Delete_Last;
-        a := vec.Last_Element;
-        vec.Delete_Last;
+        B := Vec.Last_Element;
+        Vec.Delete_Last;
+        A := Vec.Last_Element;
+        Vec.Delete_Last;
     exception
         when E : Constraint_Error =>
             raise Constraint_Error
                with "invalid RPN equation, binary operator missing operands";
-    end pop_two;
+    end Pop_Two;
 
-    function eval_operand
-       (str : String; var_map : rpn_var_map.Map) return Value
+    function Eval_Operand
+       (Str : String; Var_Map : rpn_var_map.Map) return Value
     is
     begin
-        return To_Value (str);
+        return To_Value (Str);
     exception
         when E : Constraint_Error =>
-            if var_map.Contains (str) then
-                return var_map (str);
+            if Var_Map.Contains (Str) then
+                return Var_Map (Str);
             end if;
             raise Constraint_Error
-               with "invalid RPN equation, failed to parse token: " & str;
-    end eval_operand;
+               with "invalid RPN equation, failed to parse token: " & Str;
+    end Eval_Operand;
 
-    pos   : Natural := str'First;
-    first : Positive;
-    last  : Natural;
-    vec   : Vector;
+    Pos   : Natural := Str'First;
+    First : Positive;
+    Last  : Natural;
+    Vec   : Vector;
 
-    whitespace : constant Strings.Maps.Character_Set :=
+    Whitespace : constant Strings.Maps.Character_Set :=
        Strings.Maps.To_Set (' ');
 
 begin
-    while pos in str'Range loop
+    while Pos in Str'Range loop
         Strings.Fixed.Find_Token
-           (Source => str, Set => whitespace, From => pos,
-            Test   => Strings.Outside, First => first, Last => last);
-        exit when last = 0;
+           (Source => Str, Set => Whitespace, From => Pos,
+            Test   => Strings.Outside, First => First, Last => Last);
+        exit when Last = 0;
         declare
-            a, b   : Value;
-            substr : String := str (first .. last);
+            A, B   : Value;
+            Substr : String := Str (First .. Last);
         begin
-            pos := last + 1;
-            if substr = "+" then
-                pop_two (vec, a, b);
-                vec.Append (a + b);
-            elsif substr = "-" then
-                pop_two (vec, a, b);
-                vec.Append (a - b);
-            elsif substr = "*" then
-                pop_two (vec, a, b);
-                vec.Append (a * b);
-            elsif substr = "/" then
-                pop_two (vec, a, b);
-                vec.Append (a / b);
-            elsif substr = "**" then
-                pop_two (vec, a, b);
-                vec.Append (a**b);
-            elsif substr = "//" then
-                pop_two (vec, a, b);
-                vec.Append (Truncating_Divide (a, b));
+            Pos := Last + 1;
+            if Substr = "+" then
+                Pop_Two (Vec, A, B);
+                Vec.Append (A + B);
+            elsif Substr = "-" then
+                Pop_Two (Vec, A, B);
+                Vec.Append (A - B);
+            elsif Substr = "*" then
+                Pop_Two (Vec, A, B);
+                Vec.Append (A * B);
+            elsif Substr = "/" then
+                Pop_Two (Vec, A, B);
+                Vec.Append (A / B);
+            elsif Substr = "**" then
+                Pop_Two (Vec, A, B);
+                Vec.Append (A**B);
+            elsif Substr = "//" then
+                Pop_Two (Vec, A, B);
+                Vec.Append (Truncating_Divide (A, B));
             else
-                vec.Append (eval_operand (substr, var_map));
+                Vec.Append (Eval_Operand (Substr, Var_Map));
             end if;
         end;
     end loop;
 
-    if vec.Length /= 1 then
+    if Vec.Length /= 1 then
         raise Constraint_Error
            with "invalid RPN equation, failed to evaluate to single value";
     end if;
 
-    return vec.Last_Element;
+    return Vec.Last_Element;
 
 end rpn_eval;

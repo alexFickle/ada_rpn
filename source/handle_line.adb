@@ -6,32 +6,32 @@ with rpn_var_map;
 with rpn_eval;
 with binding_parser;
 
-function handle_line
-   (line : String; var_map : in out rpn_var_map.Map) return Boolean
+function Handle_Line
+   (Line : String; Var_Map : in out rpn_var_map.Map) return Boolean
 is
-    result       : Value;
-    parse_result : binding_parser.Result := binding_parser.parse (line);
-    name         : constant String       :=
-       line (parse_result.name.s .. parse_result.name.e);
-    expr         : constant String       :=
-       line (parse_result.expr.s .. parse_result.expr.e);
+    Result       : Value;
+    Parse_Result : binding_parser.Result := binding_parser.Parse (Line);
+    Name         : constant String       :=
+       Line (Parse_Result.Name.S .. Parse_Result.Name.E);
+    Expr         : constant String       :=
+       Line (Parse_Result.Expr.S .. Parse_Result.Expr.E);
 begin
-    if expr = "" then
+    if Expr = "" then
         return True;
     end if;
 
-    result := rpn_eval (expr, var_map);
-    Put_Line (To_String (result));
+    Result := rpn_eval (Expr, Var_Map);
+    Put_Line (To_String (Result));
 
-    if name'Length = 0 then
-        var_map.Include ("_", result);
+    if Name'Length = 0 then
+        Var_Map.Include ("_", Result);
     else
-        var_map.Include (name, result);
+        Var_Map.Include (Name, Result);
     end if;
     return False;
 
 exception
-    when e : Constraint_Error =>
-        Put_Line ("error: " & Exception_Message (e));
+    when E : Constraint_Error =>
+        Put_Line ("error: " & Exception_Message (E));
         return False;
-end handle_line;
+end Handle_Line;

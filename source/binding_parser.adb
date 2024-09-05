@@ -2,54 +2,52 @@ with Ada.Strings.Fixed;
 
 package body binding_parser is
 
-    procedure strip_space (str : String; span : in out StringSpan) is
-        index : Natural := span.s;
+    procedure Strip_Space (Str : String; Span : in out String_Span) is
+        Index : Natural := Span.S;
     begin
         -- strip leading whitespace
-        while index in span.s .. span.e loop
-            exit when not (str (index) = ' ');
-            index := index + 1;
+        while Index in Span.S .. Span.E loop
+            exit when not (Str (Index) = ' ');
+            Index := Index + 1;
         end loop;
 
-        if not (index in span.s .. span.e) then
-            -- was all whitespace, give an empty span
-            span := (str'First, 0);
+        if not (Index in Span.S .. Span.E) then
+            -- was all whitespace, give an empty Span
+            Span := (Str'First, 0);
             return;
         end if;
 
-        span.s := index;
+        Span.S := Index;
 
         -- strip trailing whitespace
-        index := span.e;
-        while str (index) = ' ' loop
-            index := index - 1;
+        Index := Span.E;
+        while Str (Index) = ' ' loop
+            Index := Index - 1;
         end loop;
 
-        span.e := index;
+        Span.E := Index;
 
-    end strip_space;
+    end Strip_Space;
 
-    function parse (str : String) return Result is
-        index      : Natural;
-        assignment : constant String := ":=";
-        name       : StringSpan;
-        expr       : StringSpan;
+    function Parse (Str : String) return Result is
+        Index : Natural;
+        Name  : String_Span;
+        Expr  : String_Span;
     begin
-        index :=
-           Ada.Strings.Fixed.Index
-              (Source => str, Pattern => assignment, From => 1);
-        if index = 0 then
-            expr := (str'First, str'Last);
-            strip_space (str, expr);
+        Index :=
+           Ada.Strings.Fixed.Index (Source => Str, Pattern => ":=", From => 1);
+        if Index = 0 then
+            Expr := (Str'First, Str'Last);
+            Strip_Space (Str, Expr);
         else
-            name := (str'First, index - 1);
-            expr := (index + 2, str'Last);
-            strip_space (str, name);
-            strip_space (str, expr);
+            Name := (Str'First, Index - 1);
+            Expr := (Index + 2, Str'Last);
+            Strip_Space (Str, Name);
+            Strip_Space (Str, Expr);
         end if;
 
-        return (name, expr);
+        return (Name, Expr);
 
-    end parse;
+    end Parse;
 
 end binding_parser;

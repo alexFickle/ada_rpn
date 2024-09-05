@@ -1,15 +1,15 @@
 package binding_parser is
 
-    type StringSpan is record
-        s : Natural := 1;
-        e : Natural := 0;
+    type String_Span is record
+        S : Natural := 1;
+        E : Natural := 0;
     end record;
 
     type Result is record
-        name : StringSpan;
-        expr : StringSpan;
+        Name : String_Span;
+        Expr : String_Span;
     end record;
 
-    function parse (str : String) return Result;
+    function Parse (Str : String) return Result;
 
 end binding_parser;
